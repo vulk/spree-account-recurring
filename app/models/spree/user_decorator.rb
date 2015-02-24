@@ -1,4 +1,4 @@
-Spree::User.class_eval do
+User.class_eval do
   has_many :subscriptions
 
   def find_or_create_stripe_customer(token=nil)
