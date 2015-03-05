@@ -12,6 +12,10 @@ module Spree
 
     def create
       @subscription = @plan.subscriptions.build(subscription_params.merge(user_id: spree_current_user.id))
+     
+      logger.debug "This is the spree_current_user #{spree_current_user.inspect}"
+      logger.debug "This is the @subscription #{@subscription}"
+      logger.debug "These are the subscription_params #{subscription_params}"  
       if @subscription.save_and_manage_api
         redirect_to recurring_plan_subscription_url(@plan, @subscription), notice: "Thank you for subscribing!"
       else
