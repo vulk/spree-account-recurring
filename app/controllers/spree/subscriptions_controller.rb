@@ -11,6 +11,9 @@ module Spree
     end
 
     def create
+      logger.debug "This is the spree_current_user #{spree_current_user.inspect}"
+      logger.debug "This is the @subscription #{@subscription}"
+      logger.debug "These are the subscription_params #{subscription_params}"  
       @subscription = @plan.subscriptions.build(subscription_params.merge(user_id: spree_current_user.id))
      
       logger.debug "This is the spree_current_user #{spree_current_user.inspect}"
