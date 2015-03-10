@@ -20,6 +20,7 @@ module Spree
         end
 
         def set_api_key
+          puts "Stripe.api_key = #{preferred_secret_key}"
           Stripe.api_key = preferred_secret_key
         end
       end
