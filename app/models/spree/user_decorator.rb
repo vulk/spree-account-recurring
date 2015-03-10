@@ -24,16 +24,18 @@ klass.class_eval do
       puts "email: #{email}"
       puts "token is: #{token}"
       begin
+        sleep 3.0
         Stripe::Customer.create(description: email, email: email, card: token)
       rescue => e
-        puts e
-        puts "stripe create failed"
+        puts "stripe create failed: #{e}"
       end
     else
       Stripe::Customer.create(description: email, email: email)
     end
     puts "customer is: #{customer}"
-    update_column(:stripe_customer_id, customer.id)
+    unless customer.nil?
+      update_column(:stripe_customer_id, customer.id)
+    end
     customer
   end
 
