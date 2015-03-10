@@ -21,6 +21,8 @@ klass.class_eval do
     return api_customer if stripe_customer_id? == true
     puts "after api_customer. stripe customer not found"
     customer = if token
+      puts "email: #{email}"
+      puts "token is: #{token}"
       Stripe::Customer.create(description: email, email: email, card: token)
     else
       Stripe::Customer.create(description: email, email: email)
