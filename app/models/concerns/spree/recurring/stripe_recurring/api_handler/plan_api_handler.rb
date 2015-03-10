@@ -5,7 +5,8 @@ module Spree
         module PlanApiHandler
           def create_plan(plan)
             raise_invalid_object_error(plan, Spree::Plan)
-            Stripe::Plan.create(
+            puts "create plan ..."
+            plan_response = Stripe::Plan.create(
               amount: stripe_amount(plan.amount),
               interval: plan.interval,
               interval_count: plan.interval_count,
@@ -14,6 +15,8 @@ module Spree
               id: plan.api_plan_id,
               trial_period_days: plan.trial_period_days
             )
+            puts "plan_response() plan is: #{plan_response}"
+            plan_response
           end
 
           def delete_plan(plan)
