@@ -27,6 +27,7 @@ klass.class_eval do
   end
 
   def api_customer
+    puts "stripe_customer_id is: #{stripe_customer_id}"
     Stripe::Customer.retrieve(stripe_customer_id)
   end
 end
