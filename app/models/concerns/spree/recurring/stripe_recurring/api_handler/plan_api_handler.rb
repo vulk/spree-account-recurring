@@ -6,6 +6,7 @@ module Spree
           def create_plan(plan)
             raise_invalid_object_error(plan, Spree::Plan)
             puts "create plan ..."
+            puts "what api key are we using?: #{Stripe.api_key}"
             plan_response = Stripe::Plan.create(
               amount: stripe_amount(plan.amount),
               interval: plan.interval,
