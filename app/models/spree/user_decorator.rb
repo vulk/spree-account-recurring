@@ -23,7 +23,12 @@ klass.class_eval do
     customer = if token
       puts "email: #{email}"
       puts "token is: #{token}"
-      Stripe::Customer.create(description: email, email: email, card: token)
+      begin
+        Stripe::Customer.create(description: email, email: email, card: token)
+      rescue => e
+        puts e
+        puts "stripe create failed"
+      end
     else
       Stripe::Customer.create(description: email, email: email)
     end
