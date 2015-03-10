@@ -16,8 +16,10 @@ klass.class_eval do
     puts "adding stripe customer"
     puts "token is: #{token}"
     puts "stripe_customer_id is: #{stripe_customer_id}"
+    puts "user id is: #{id}"
     puts "is there a stripe_customer_id?: #{stripe_customer_id?}"
-    return api_customer if stripe_customer_id?
+    return api_customer if stripe_customer_id? != true
+    puts "after api_customer"
     customer = if token
       Stripe::Customer.create(description: email, email: email, card: token)
     else
