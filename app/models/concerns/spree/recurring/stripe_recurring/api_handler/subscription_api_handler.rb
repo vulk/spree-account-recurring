@@ -6,10 +6,11 @@ module Spree
           def subscribe(subscription)
             raise_invalid_object_error(subscription, Spree::Subscription)
             customer = subscription.user.find_or_create_stripe_customer(subscription.card_token)
-            puts "subscription handler customer is: #{customer}"
-            unless customer.nil?
+            puts "subcribe() subscription handler customer is: #{customer}"
+            puts "subcribe() subscription is: #{subscription}"
+            # unless customer.nil?
               customer.subscriptions.create(plan: subscription.api_plan_id)
-            end
+            # end
           end
 
           def unsubscribe(subscription)
