@@ -18,8 +18,8 @@ klass.class_eval do
     puts "stripe_customer_id is: #{stripe_customer_id}"
     puts "user id is: #{id}"
     puts "is there a stripe_customer_id?: #{stripe_customer_id?}"
-    return api_customer if stripe_customer_id? != true
-    puts "after api_customer"
+    return api_customer if stripe_customer_id? == true
+    puts "after api_customer. stripe customer not found"
     customer = if token
       Stripe::Customer.create(description: email, email: email, card: token)
     else
@@ -31,7 +31,7 @@ klass.class_eval do
   end
 
   def api_customer
-    puts "getting stripe customer id ..."
+    puts "api_customer() getting stripe customer id ..."
     puts "stripe_customer_id is: #{stripe_customer_id}"
     Stripe::Customer.retrieve(stripe_customer_id)
   end
