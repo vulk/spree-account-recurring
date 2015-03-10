@@ -23,6 +23,7 @@ module Spree
       end
 
       def save_and_manage_api(*args)
+        puts "plan.save_and_manage_api() args: #{args}"
         begin
           new_record? ? save : update_attributes(*args)
         rescue provider.error_class, ActiveRecord::RecordNotFound => e
@@ -33,6 +34,7 @@ module Spree
       end
 
       def provider
+        puts "plan.provider() recurring: #{recurring}"
         recurring.present? ? recurring : (raise ActiveRecord::RecordNotFound.new("Provider not found."))
       end
 

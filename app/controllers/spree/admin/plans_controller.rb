@@ -13,6 +13,7 @@ module Spree
       end
 
       def create
+        puts "admin plan_params = #{plan_params}"
         @plan = @recurring.plans.build(plan_params)
         if @plan.save_and_manage_api
           flash[:notice] = 'Plan created successfully.'
@@ -23,6 +24,7 @@ module Spree
       end
 
       def update
+        puts "admin plan_params = #{plan_params}"
         if @plan.save_and_manage_api(plan_params(:update))
           flash[:notice] = 'Plan updated successfully.'
           redirect_to edit_admin_recurring_plan_path(@recurring, @plan)
