@@ -29,6 +29,8 @@ module Spree
       end
 
       def provider
+        puts "Subscription.provider() plan: #{plan}"
+        puts "Subscription.provider() plan.try(:recurring): #{plan.try(:recurring)}"
         plan.try(:recurring).present? ? plan.recurring : (raise ActiveRecord::RecordNotFound.new("Provider not found."))
       end
 
