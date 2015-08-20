@@ -37,7 +37,7 @@ module Spree
       @user = Spree.user_class.find_by(stripe_customer_id: event[:data][:object][:customer])
       return render_status_ok  if @user.blank?
 
-      @subscription = @user.subscription
+      @subscription = @user.try(:subscription)
       return render_status_ok if @subscription.blank?
     end
 
