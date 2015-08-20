@@ -27,7 +27,18 @@ module Spree
     end
 
     def find_subscription
-      render_status_ok unless @subscription = Spree.user_class.find_by(stripe_customer_id: event[:data][:object][:customer]).subscription
+      # fun fact about this function.
+      #
+      # its supposed to quit execution with a render ok (which would give a 200 status code.) 
+      # that wouldn't piss of stripe and cause them to send you an email that says your endpoint is failing a million times
+      #
+      # ... unless it fails to find a user with an associated subscription lol not that I would know anything about that
+      #
+      @user = Spree.user_class.find_by(stripe_customer_id: event[:data][:object][:customer])
+      return render_status_ok  if @user.blank?
+
+      @subscription = @user.subscription
+      return render_status_ok if @subscription.blank?
     end
 
     def retrieve_api_event
